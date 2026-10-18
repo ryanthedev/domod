@@ -1,0 +1,75 @@
+{
+  "name": "domod",
+  "version": "0.2.0",
+  "description": "A todo list and notepad that last across sessions, shared between you and Claude",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "harvest": {
+      "type": "boolean",
+      "title": "Harvest action items",
+      "description": "When Claude's reply asks something of you (\"What you need to do\", \"Your turn\"), a small model pulls out the action items and a card above the prompt lets you sort each one.",
+      "default": true
+    },
+    "harvestTeammates": {
+      "type": "boolean",
+      "title": "Harvest teammate messages",
+      "description": "Also read messages that other sessions and teammates send into this one.",
+      "default": true
+    },
+    "harvestModel": {
+      "type": "string",
+      "title": "Harvest model",
+      "description": "The model that reads replies for action items.",
+      "default": "haiku",
+      "options": ["haiku", "sonnet"]
+    },
+    "runNow": {
+      "type": "boolean",
+      "title": "Run now buttons",
+      "description": "Claude's items get a Run button that sends the item to Claude as a prompt.",
+      "default": true
+    },
+    "decisions": {
+      "type": "boolean",
+      "title": "Decision buttons",
+      "description": "Go/no-go items get Go and No-go buttons; your answer reaches Claude with your next prompt.",
+      "default": true
+    },
+    "autoClose": {
+      "type": "boolean",
+      "title": "Auto-close from commands",
+      "description": "When Claude runs gh pr merge or gh pr close on a PR an item names, or the PR shows merged, that item closes. /todo undo reopens it.",
+      "default": true
+    },
+    "prStatus": {
+      "type": "boolean",
+      "title": "PR status badges",
+      "description": "Checks the PRs that items name with gh and shows merged, approved or failing checks beside them.",
+      "default": true
+    },
+    "prPollMinutes": {
+      "type": "number",
+      "title": "PR check interval (minutes)",
+      "description": "How often PR status is checked.",
+      "default": 10
+    },
+    "waitingOn": {
+      "type": "boolean",
+      "title": "Waiting-on items",
+      "description": "Items can wait on a named person (w:Name in the add box).",
+      "default": true
+    },
+    "snooze": {
+      "type": "boolean",
+      "title": "Snooze",
+      "description": "Items can be hidden until later (zz in the pane, or /todo snooze <id> 2h|3d|tomorrow|mon).",
+      "default": true
+    },
+    "notifications": {
+      "type": "boolean",
+      "title": "Desktop notifications",
+      "description": "A macOS notification when a snoozed item comes back or a PR an item names is merged.",
+      "default": true
+    }
+  }
+}

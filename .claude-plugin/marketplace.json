@@ -1,0 +1,5 @@
+{
+  "name": "domod",
+  "owner": { "name": "ryanthedev" },
+  "plugins": [{ "name": "domod", "source": "./" }]
+}
