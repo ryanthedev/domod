@@ -15,6 +15,8 @@ export type PunchItem = {
   waitingOn?: string
   snoozedUntil?: number | null
   doneBy?: string
+  // Set when the text came from someone other than the person or Claude.
+  from?: string
   decision?: { answer: 'go' | 'no-go'; at: number; isSent: boolean }
 }
 

@@ -47,7 +47,7 @@ Each of these is a setting you can turn off in `/config`.
 | Setting | Default | What it does |
 |---|---|---|
 | Harvest action items | on | When a reply contains a request ("What you need to do", "Your turn"), a small model lists the action items for you to sort. One call per such reply. |
-| Harvest teammate messages | on | Also reads messages other sessions and teammates send into this one. |
+| Harvest teammate messages | on | Also reads messages your other sessions and teammates send into this one (never messages relayed from Slack or other channels). Items found this way are marked with where they came from, and can't be run with one key. |
 | Harvest model | haiku | `haiku` or `sonnet`. |
 | Run now buttons | on | Claude's items get a button that sends the item to Claude as a prompt. |
 | Decision buttons | on | Decision items get go and no-go buttons; Claude hears your answer with your next prompt. |
