@@ -1,14 +1,20 @@
 {
   "name": "domod",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A todo list and notepad that last across sessions, shared between you and Claude",
   "types": "./types/index.d.ts",
   "userConfig": {
+    "focusLimit": {
+      "type": "number",
+      "title": "Items for you at once",
+      "description": "The most open items Claude may give you at a time; Claude is told to aim for three. Items you add yourself are never refused.",
+      "default": 5
+    },
     "harvest": {
       "type": "boolean",
       "title": "Harvest action items",
       "description": "When Claude's reply asks something of you (\"What you need to do\", \"Your turn\"), a small model pulls out the action items and a card above the prompt lets you sort each one.",
-      "default": true
+      "default": false
     },
     "harvestTeammates": {
       "type": "boolean",
@@ -21,7 +27,16 @@
       "title": "Harvest model",
       "description": "The model that reads replies for action items.",
       "default": "haiku",
-      "options": ["haiku", "sonnet"]
+      "options": [
+        "haiku",
+        "sonnet"
+      ]
+    },
+    "triageMinutes": {
+      "type": "number",
+      "title": "Triage card timeout (minutes)",
+      "description": "Found items you leave unsorted disappear after this long; nothing is added unless you pick it.",
+      "default": 3
     },
     "runNow": {
       "type": "boolean",

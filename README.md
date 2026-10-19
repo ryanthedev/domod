@@ -34,11 +34,11 @@ From a shell, use `claude plugin install domod@rtd`. The PR features need the [G
 
 Items belong to the project you add them in. Each one has an owner: **you**, **Claude**, or **waiting on** a named person. A **decision** item is a go/no-go or a choice only you can make.
 
-**In the pane**, `1`-`9` check off the first nine open items. Each row has buttons to hand it over (`→Claude`, `→me`), snooze it (`zz`), run it (`▶ run`, on Claude's items) or decide it (`go`, `no-go`). In the add box, start with `c:` for Claude, `d:` for a decision, or `w:Name` for an item waiting on someone.
+**In the pane**, select first, then act. `1`-`9` (or Enter on a row) select or unselect the first nine open items; with nothing selected, the keys act on the row the focus is on. A bar names the targets and takes one key for all of them: `r` reply (quotes them into the prompt box for you to answer), `a` ask Claude to work on them, `d` done, `g`/`n` go or no-go (when all are decisions), `c` hand to Claude, `m` take back, `z` snooze until tomorrow 9am, `x` clear the selection. Items a teammate sent can't go to Claude with `a`. Pressing a done item reopens it. In the add box, start with `c:` for Claude, `d:` for a decision, or `w:Name` for an item waiting on someone.
 
-**Above the prompt**, domod shows your oldest open item. When a reply asks something of you, it shows the items it found instead, to sort with `y` (you), `c` (Claude), `r` (run now), `w` (waiting), `x` (drop) or `a` (accept all). Focus that line with `ctrl+x tab` to use those keys.
+**Above the prompt**, domod shows your oldest open item. With **Harvest action items** turned on in `/config`, when a reply asks something of you, it shows the items it found instead, with the time each one closes. From an empty prompt, `1` files it for you, `2` for Claude, `3` as waiting (when suggested); digits only ever classify. **run now**, **drop** and **accept all** have no digit: focus the band (or click) to press them.
 
-**Claude** gets five tools (`todo_add`, `todo_done`, `todo_update`, `todo_list`, `note_append`) and a short instruction to use them. The open list rides along with your prompt only when it changed, so it costs little.
+**Claude** is coached to be stingy with your attention: aim for three items, never more than your limit. It gets five tools (`todo_add`, `todo_done`, `todo_update`, `todo_list`, `note_append`) and a short instruction to use them. The open list rides along with your prompt only when it changed, so it costs little.
 
 ## What it does on its own
 
@@ -46,11 +46,13 @@ Each of these is a setting you can turn off in `/config`.
 
 | Setting | Default | What it does |
 |---|---|---|
-| Harvest action items | on | When a reply contains a request ("What you need to do", "Your turn"), a small model lists the action items for you to sort. One call per such reply. |
-| Harvest teammate messages | on | Also reads messages your other sessions and teammates send into this one (never messages relayed from Slack or other channels). Items found this way are marked with where they came from, and can't be run with one key. |
+| Items for you at once | 5 | The most open items Claude may give you. Claude is told to aim for three, to do work itself where it can, and to fold related asks into one item; past the limit its `todo_add` is refused and the harvester suggests nothing more for you. Items you add yourself are never refused. |
+| Harvest action items | off | When a reply contains a request ("What you need to do", "Your turn"), a small model lists the action items for you to sort. One call per such reply. |
+| Harvest teammate messages | on | When harvesting is on, also reads messages your other sessions and teammates send into this one (never messages relayed from Slack or other channels). Items found this way are marked with where they came from, and can't be run with one key. |
 | Harvest model | haiku | `haiku` or `sonnet`. |
-| Run now buttons | on | Claude's items get a button that sends the item to Claude as a prompt. |
-| Decision buttons | on | Decision items get go and no-go buttons; Claude hears your answer with your next prompt. |
+| Triage card timeout | 3 min | Found items you leave unsorted disappear; nothing is added unless you pick it. |
+| Run now buttons | on | The pane's `a` key sends the selected items to Claude as one prompt (never a teammate's), and found items get a **run now** choice. |
+| Decision buttons | on | When every selected item is a decision, the pane's `g` and `n` keys answer go or no-go; Claude hears your answer with your next prompt. |
 | Auto-close from commands | on | When Claude runs `gh pr merge` or `gh pr close` on a PR an item names, or the PR shows merged, the item closes. `/todo undo` reopens it. |
 | PR status badges | on | Shows merged, approved, changes requested or failing checks beside items that name a PR. |
 | PR check interval | 10 min | How often PR status is checked. |

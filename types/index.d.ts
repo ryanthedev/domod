@@ -28,6 +28,8 @@ export type PunchFound = {
   kind: PunchKind
   waitingOn?: string
   source: string
+  // When the harvester found it; the card drops it after the triage window.
+  foundAt?: number
 }
 
 // What `gh pr view` last said about one PR an item names.
@@ -46,6 +48,10 @@ declare module 'claude-code' {
       root: string
       found: PunchFound[]
       prs: Record<string, PunchPr>
+      // Ids the person picked in the pane; the action bar acts on them.
+      selected: number[]
+      // The open row the pane's focus ring last landed on: the bar's target when nothing is selected.
+      focused: number | null
     }
   }
 }
