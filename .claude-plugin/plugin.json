@@ -1,6 +1,6 @@
 {
   "name": "domod",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A todo list and notepad that last across sessions, shared between you and Claude",
   "types": "./types/index.d.ts",
   "userConfig": {

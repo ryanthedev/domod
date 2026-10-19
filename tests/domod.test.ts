@@ -578,7 +578,7 @@ test('a hand-over counts the item\'s own project, not the session\'s', { options
 })
 
 test('a suggestion left unsorted past the triage window is dropped', { options: { harvest: true, prStatus: false, triageMinutes: 1 } }, async ($, on) => {
-  // An open item of the person's, so the band draws its oldest-item line once the card is gone.
+  // An open item of the person's, so the band draws its counts once the card is gone.
   mock.store(on, { items: [stored({ text: 'Already open' })] })
   const clock = mock.clock(on, { now: 1_000_000 })
   mock.env(on, {})
@@ -606,7 +606,7 @@ test('a suggestion left unsorted past the triage window is dropped', { options: 
   expect(await band.find({ key: 'found-me' })).toBeDefined()
   await clock.advance(45 * 1000)
   expect(await band.find({ key: 'found-me' })).toBeUndefined()
-  expect(await band.find({ key: 'done-oldest' })).toBeDefined()
+  expect(await band.find({ key: 'counts' })).toBeDefined()
 })
 
 test('on the triage card, digits only classify: you, Claude, waiting', { options: { harvest: true } }, async ($, on) => {

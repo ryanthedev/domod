@@ -981,33 +981,21 @@ export const register: Register = (on, options) => {
       )
     }
 
+    // Counts only: items are read and acted on in the pane, never one by one from here.
     const open = await openHere($)
-    const mine = open.filter(item => item.owner === 'me')
-    if (mine.length === 0) return next(e)
-
-    const others = open.length - mine.length
-    const oldest = mine.reduce((a, b) => (b.createdAt < a.createdAt ? b : a))
-    const now = await $.clock.now()
+    if (open.length === 0) return next(e)
+    const count = (owner: PunchItem['owner']) => open.filter(item => item.owner === owner).length
+    const [mine, claudes, waiting] = [count('me'), count('claude'), count('waiting')]
 
     return (
-      <Box flexDirection="row">
-        <Box flexShrink={1}>
-          <Text wrap="truncate-end">
-            <Text color="warning">{mine.length} for you</Text>
-            <Text dimColor>{others ? `, ${others} other` : ''} · oldest: </Text>
-            {oldest.text}{' '}
-            <Text color={ageColor(now, oldest.createdAt)} dimColor={!ageColor(now, oldest.createdAt)}>
-              {age(now, oldest.createdAt)}
-            </Text>
+      <Box key="counts">
+        <Text wrap="truncate-end">
+          <Text color="warning" bold>domod</Text>{' '}
+          <Text color={mine ? 'warning' : undefined} dimColor={!mine}>{mine} for you</Text>
+          <Text dimColor>
+            {' · '}{claudes} for Claude{waiting ? ` · ${waiting} waiting` : ''}
           </Text>
-        </Box>
-        <Text> </Text>
-        <Button key="done-oldest" label="Done" onPress={() => void setDone($, [oldest.id], true, 'you')} />
-        <Button
-          key="open"
-          label="Open"
-          onPress={() => void $.ui.open({ id: TODO_PANE, title: 'domod', focus: true })}
-        />
+        </Text>
       </Box>
     )
   })
